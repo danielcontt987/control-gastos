@@ -1,5 +1,5 @@
 export type BudgetActions = 
-    {type: 'add-budget', payload: {buget: number}}
+    {type: 'add-budget', payload: {budget: number}}
 
 
 export type BudgetState = {
@@ -17,7 +17,7 @@ export const budgetReducer = (
     if (actions.type === 'add-budget') {
         return {
             ...state,
-            budget: actions.payload.buget
+            budget: actions.payload.budget
         }
     }
     return state
