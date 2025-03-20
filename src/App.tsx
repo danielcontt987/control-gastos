@@ -1,7 +1,7 @@
 import BubgetForm from "./components/BubgetForm";
 import ThemeProvider from "./components/theme/ThemeProvider";
 
-export default function App() {
+export default function App() {  
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 text-black dark:text-white">
       {/* Contenedor del encabezado */}
