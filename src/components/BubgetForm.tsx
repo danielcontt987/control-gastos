@@ -11,7 +11,7 @@ export default function BudgetForm() {
         setBudget(e.target.valueAsNumber)
     }
     const isValid = useMemo(() => {
-        return isNaN(budget) || budget <= 5
+        return isNaN(budget) || budget <= 0
     }, [budget])
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -23,7 +23,7 @@ export default function BudgetForm() {
             <form className="space-y-5" onSubmit={handleSubmit}>
                 <div className="flex flex-col space-y-5">
                     <label htmlFor="budget" className="text-3xl font-semibold text-center">
-                        Definir presupuesto
+                        Te amo mi casimerita 😘
                     </label>
 
                     <div className="relative w-full">

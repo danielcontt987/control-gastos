@@ -6,6 +6,8 @@ export default {
     extend: {
        colors: {
          'custom-blue': '#465fff',
+         'vibrant-rubi': '#e53f67',
+         'mango-yellow': '#f6ab0e'
        }
     },
   },
