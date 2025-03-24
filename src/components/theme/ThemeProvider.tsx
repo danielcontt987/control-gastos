@@ -19,7 +19,7 @@ export default function ThemeProvider() {
       className="flex items-center justify-center w-12 h-12 rounded-full bg-white dark:bg-gray-800 text-black dark:text-white "
       onClick={() => setDarkMode(!darkMode)}
     >
-      {darkMode ? "🌙" : "☀️"}
+      {darkMode ? "☀️" : "🌙"}
     </button>
   );
 }

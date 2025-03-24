@@ -12,7 +12,7 @@ export default function BudgetTracker() {
                 <button
                     // onClick={() => setIsOpen(true)}
                     type="button"
-                    className="w-full rounded-lg py-3 bg-vibrant-rubi text-white
+                    className="w-full rounded-lg py-3 bg-red-700 text-white
                  font-normal uppercase hover:bg-pink-900 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     Reiniciar

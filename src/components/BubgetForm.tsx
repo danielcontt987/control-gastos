@@ -23,7 +23,7 @@ export default function BudgetForm() {
             <form className="space-y-5" onSubmit={handleSubmit}>
                 <div className="flex flex-col space-y-5">
                     <label htmlFor="budget" className="text-3xl font-semibold text-center">
-                        Te amo mi casimerita 😘
+                        Definir presupuesto
                     </label>
 
                     <div className="relative w-full">

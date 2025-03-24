@@ -12,7 +12,7 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 text-black dark:text-white">
       {/* Contenedor del encabezado */}
-      <header className="w-full flex items-center justify-between p-4 pb-4 pt-4 bg-gray-100 dark:bg-gray-800">
+      <header className="w-full flex items-center justify-between p-4 pb-4 pt-4 bg-white dark:bg-gray-800">
         <h1 className="text-xl font-bold">Planificador de Gastos</h1>
         <ThemeProvider /> {/* Botón de alternancia */}
       </header>
@@ -34,8 +34,8 @@ export default function App() {
 
 
       {/* Footer */}
-      <footer className="w-full flex items-center justify-between p-4 pb-4 pt-4 bg-gray-100 dark:bg-gray-800">
-        <h1 className="text-xl font-bold">Planificador de Gastos</h1>
+      <footer className="w-full flex items-center justify-between p-4 pb-4 pt-4 bg-white dark:bg-gray-800">
+        <h1 className="text-md font-normal">Planificador de Gastos</h1>
       </footer>
     </div>
   );
