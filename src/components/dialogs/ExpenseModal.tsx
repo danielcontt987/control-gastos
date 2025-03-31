@@ -2,6 +2,7 @@ import { mdiPlus } from '@mdi/js';
 import Icon from '@mdi/react';
 import { useBudget } from '../../hooks/useBudget';
 import ExpenseForm from '../form/ExpenseForm';
+import ErrorModal from './ErrorModal';
 
 export default function ExpenseModal() {
     const { state, dispatch } = useBudget();
@@ -10,9 +11,9 @@ export default function ExpenseModal() {
             <button
                 type="button"
                 onClick={() => dispatch({ type: 'show-modal' })}
-                className="rounded-full bg-mango-yellow w-16 h-16"
+                className="rounded-full bg-custom-blue w-16 h-16"
             >
-                <Icon path={mdiPlus} size={2} className="m-auto" />
+                <Icon path={mdiPlus} size={2} className="m-auto" color={"white"}/>
             </button>
 
             {/* Modal siempre presente pero con clases de animación */}
@@ -33,6 +34,10 @@ export default function ExpenseModal() {
                     <ExpenseForm />
                 </div>
             </div>
+
+            {/* {error && <ErrorModal>{error}</ErrorModal>}
+ */}
+            { state.modalError && <ErrorModal>{state.errorMsg}</ErrorModal>}
         </div>
     );
 }

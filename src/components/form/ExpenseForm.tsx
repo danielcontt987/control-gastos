@@ -15,7 +15,18 @@ export default function ExpenseForm() {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch({ type: 'close-modal' });
+
+        //validar
+        if (Object.values(expense).includes('')) {
+            
+            dispatch({type: 'msg-error', payload: {
+                error: "Los campos deben de ser obligatorios"
+            }});
+            dispatch({ type: 'show-modal-error' })
+
+        }
+
+        dispatch({type: 'add-expense', payload: { expense }})
     };
 
     const handleChange = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
@@ -103,7 +114,7 @@ export default function ExpenseForm() {
                 <button
                     type="button"
                     onClick={() => dispatch({ type: 'close-modal' })}
-                    className="block w-full py-2 uppercase dark:text-white rounded-lg dark:bg-red-500 text-red-700 border-2"
+                    className="block w-full py-2 uppercase dark:text-white rounded-lg dark:bg-red-500 text-red-700"
                 >
                     Cerrar
                 </button>

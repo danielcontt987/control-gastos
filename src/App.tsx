@@ -4,6 +4,7 @@ import ThemeProvider from "./components/theme/ThemeProvider";
 import { useBudget } from "./hooks/useBudget";
 import BudgetTracker from "./components/BudgetTracker";
 import ExpenseModal from "./components/dialogs/ExpenseModal";
+import moment from "moment";
 
 export default function App() {  
   const {state } = useBudget();
@@ -34,8 +35,8 @@ export default function App() {
 
 
       {/* Footer */}
-      <footer className="w-full flex items-center justify-between p-4 pb-4 pt-4 bg-white dark:bg-gray-800">
-        <h1 className="text-md font-normal">Planificador de Gastos</h1>
+      <footer className="w-full flex items-center justify-center p-4 pb-4 pt-4 bg-white dark:bg-gray-800">
+        <h1 className="text-sm font-normal">&#169; Todos los derechos reservados {moment().format('YYYY')}</h1>
       </footer>
     </div>
   );
