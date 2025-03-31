@@ -10,9 +10,7 @@ export type BudgetActions =
     {type: 'show-modal-error'} |
     {type: 'close-modal-error'} |
     {type: 'msg-error', payload: {error: string}} |
-    {type: 'msg-error-clear'} |
-    {type: 'add-expense', payload: {expense : DraftExpense}} |
-    {type: 'clear-expense'}
+    {type: 'add-expense', payload: {expense : DraftExpense}}
 
 
 export type BudgetState = {
@@ -92,9 +90,6 @@ export const budgetReducer = (
             expense: [...state.expense, expense]
         }
     }
-
-    if (actions.type === 'clear-expense') {
-        
-    }
+    
     return state
 }
