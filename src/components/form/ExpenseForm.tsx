@@ -16,17 +16,31 @@ export default function ExpenseForm() {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        //validar
+        //Validation
         if (Object.values(expense).includes('')) {
-            
-            dispatch({type: 'msg-error', payload: {
-                error: "Los campos deben de ser obligatorios"
+            dispatch({type: 'msg', payload: {
+                msg: "Los campos deben de ser obligatorios"
             }});
-            dispatch({ type: 'show-modal-error' })
-
+            dispatch({ type: 'show' })
+            dispatch({type: 'status-modal', payload:{status: false}})
+            return
         }
 
+        //Send data
         dispatch({type: 'add-expense', payload: { expense }})
+        dispatch({type: 'status-modal', payload:{status: true}})
+        dispatch({type: 'msg', payload: {
+            msg: "Los datos han sido guardados correctamente"
+        }});
+        dispatch({ type: 'show' })
+
+        //Reset form dialog
+        setExpense({
+            amount: 0,
+            expenseName: '',
+            category: '',
+            date: moment().toDate(),
+        })
     };
 
     const handleChange = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {

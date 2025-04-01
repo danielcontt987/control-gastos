@@ -13,3 +13,7 @@ export type Category = {
     name: string
     icon: string
 }
+
+export type Status = {
+    status: boolean,
+}

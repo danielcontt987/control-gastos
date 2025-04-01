@@ -2,7 +2,7 @@ import { mdiPlus } from '@mdi/js';
 import Icon from '@mdi/react';
 import { useBudget } from '../../hooks/useBudget';
 import ExpenseForm from '../form/ExpenseForm';
-import ErrorModal from './ErrorModal';
+import AlertNormal from './AlertNormal';
 
 export default function ExpenseModal() {
     const { state, dispatch } = useBudget();
@@ -35,9 +35,7 @@ export default function ExpenseModal() {
                 </div>
             </div>
 
-            {/* {error && <ErrorModal>{error}</ErrorModal>}
- */}
-            { state.modalError && <ErrorModal>{state.errorMsg}</ErrorModal>}
+            { state.modalAlert && <AlertNormal>{state.msg}</AlertNormal>}
         </div>
     );
 }

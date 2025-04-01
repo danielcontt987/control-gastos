@@ -1,32 +1,35 @@
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
-import { DraftExpense, Expense } from "../types"
+import { DraftExpense, Expense } from "../types";
 
 
 export type BudgetActions = 
     {type: 'add-budget', payload: {budget: number}} |
     {type: 'show-modal'} |
     {type: 'close-modal'} |
-    {type: 'show-modal-error'} |
-    {type: 'close-modal-error'} |
-    {type: 'msg-error', payload: {error: string}} |
-    {type: 'add-expense', payload: {expense : DraftExpense}}
+    {type: 'show'} |
+    {type: 'close'} |
+    {type: 'msg', payload: {msg: string}} |
+    {type: 'add-expense', payload: {expense : DraftExpense}} |
+    {type: 'status-modal', payload: {status : boolean}}
 
 
 export type BudgetState = {
     budget: number,
     modal: boolean,
-    modalError: boolean,
-    errorMsg: string,
+    modalAlert: boolean,
+    msg: string,
     expense: Expense[],
+    status: boolean,
 }
 
 export const initialState = {
     budget: 0,
     modal: false,
-    modalError: false,
-    errorMsg: '',
+    modalAlert: false,
+    msg: '',
     expense: [],
+    status: false,
 }
 
 const craeteExpense = (draftExpense: DraftExpense) : Expense => {
@@ -61,25 +64,25 @@ export const budgetReducer = (
         }
     }
 
-    if (actions.type == 'show-modal-error') {
+    if (actions.type == 'show') {
         return {
             ...state,
-            modalError: true,
+            modalAlert: true,
         }
     }
 
-    if (actions.type == 'close-modal-error') {
+    if (actions.type == 'close') {
         return {
             ...state,
-            modalError: false,
-            errorMsg: ''
+            modalAlert: false,
+            msg: ''
         }
     }
 
-    if (actions.type == 'msg-error') {
+    if (actions.type == 'msg') {
         return {
             ...state,
-            errorMsg: actions.payload.error
+            msg: actions.payload.msg
         }
     }
 
@@ -87,9 +90,17 @@ export const budgetReducer = (
         const expense = craeteExpense(actions.payload.expense)
         return {
             ...state,
-            expense: [...state.expense, expense]
+            expense: [...state.expense, expense],
+            modal: false
         }
     }
-    
+
+    if (actions.type === 'status-modal') {
+        return {
+            ...state,
+            status: actions.payload.status
+        }
+    }
+
     return state
 }
