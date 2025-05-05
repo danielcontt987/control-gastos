@@ -11,7 +11,10 @@ export type BudgetActions =
     {type: 'close'} |
     {type: 'msg', payload: {msg: string}} |
     {type: 'add-expense', payload: {expense : DraftExpense}} |
-    {type: 'status-modal', payload: {status : boolean}}
+    {type: 'status-modal', payload: {status : boolean}} | 
+    {type: 'remove-expense', payload: {id: Expense['id']}} |
+    {type: 'get-expense-by-id', payload: {id: Expense['id']}} |
+    {type: 'update-expense', payload: {expense: Expense}} 
 
 
 export type BudgetState = {
@@ -21,6 +24,7 @@ export type BudgetState = {
     msg: string,
     expense: Expense[],
     status: boolean,
+    editingId: Expense['id']
 }
 
 export const initialState = {
@@ -30,6 +34,7 @@ export const initialState = {
     msg: '',
     expense: [],
     status: false,
+    editingId: '',
 }
 
 const craeteExpense = (draftExpense: DraftExpense) : Expense => {
@@ -41,37 +46,37 @@ const craeteExpense = (draftExpense: DraftExpense) : Expense => {
 
 export const budgetReducer = (
     state: BudgetState = initialState,
-    actions: BudgetActions
+    action: BudgetActions
 ) => {
-    if (actions.type === 'add-budget') {
+    if (action.type === 'add-budget') {
         return {
             ...state,
-            budget: actions.payload.budget
+            budget: action.payload.budget
         }
     }
 
-    if (actions.type == 'show-modal') {
+    if (action.type == 'show-modal') {
         return {
             ...state,
             modal: true
         }
     }
 
-    if (actions.type == 'close-modal') {
+    if (action.type == 'close-modal') {
         return {
             ...state,
             modal: false
         }
     }
 
-    if (actions.type == 'show') {
+    if (action.type == 'show') {
         return {
             ...state,
             modalAlert: true,
         }
     }
 
-    if (actions.type == 'close') {
+    if (action.type == 'close') {
         return {
             ...state,
             modalAlert: false,
@@ -79,15 +84,15 @@ export const budgetReducer = (
         }
     }
 
-    if (actions.type == 'msg') {
+    if (action.type == 'msg') {
         return {
             ...state,
-            msg: actions.payload.msg
+            msg: action.payload.msg
         }
     }
 
-    if (actions.type === 'add-expense') {
-        const expense = craeteExpense(actions.payload.expense)
+    if (action.type === 'add-expense') {
+        const expense = craeteExpense(action.payload.expense)
         return {
             ...state,
             expense: [...state.expense, expense],
@@ -95,12 +100,37 @@ export const budgetReducer = (
         }
     }
 
-    if (actions.type === 'status-modal') {
+    if (action.type === 'status-modal') {
         return {
             ...state,
-            status: actions.payload.status
+            status: action.payload.status
         }
     }
 
+    if (action.type === 'remove-expense') {
+        return{
+            ...state,
+            expense: state.expense.filter(expense => expense.id !== action.payload.id)
+        }
+    }
+    if (action.type === 'get-expense-by-id') {
+        return{
+            ...state,
+            editingId: action.payload.id,
+            modal: true
+        }
+    }
+
+    if(action.type === 'update-expense') {        
+        return {
+            ...state,
+            expense: state.expense.map(exp =>
+                exp.id === action.payload.expense.id ? action.payload.expense : exp
+            ),
+            modal: false,
+            editingId: ''
+        };
+    }
+        
     return state
 }

@@ -28,7 +28,7 @@ export default function ExpenseModal() {
                 >
                     <h2 className="text-xl font-medium mb-10 text-left">
                         <span className="bg-custom-blue px-4 py-2 rounded-lg text-white">
-                            Nuevo gasto
+                            {state.editingId ? 'Editar gasto' : 'Nuevo gasto'}
                         </span>
                     </h2>
                     <ExpenseForm />

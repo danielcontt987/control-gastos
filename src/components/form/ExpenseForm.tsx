@@ -1,17 +1,24 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { categories } from "../../data/categories";
 import { useBudget } from "../../hooks/useBudget";
 import { DraftExpense } from "../../types";
 import moment from "moment";
 
 export default function ExpenseForm() {
-    const { dispatch } = useBudget();
+    const { dispatch, state } = useBudget();
     const [expense, setExpense] = useState<DraftExpense>({
         amount: 0,
         expenseName: '',
         category: '',
         date: moment().toDate(),
     });
+
+    useEffect(() => {
+        if (state.editingId) {
+            const editingExpense = state.expense.filter(currentExpense => currentExpense.id === state.editingId)[0]
+            setExpense(editingExpense)
+        }
+    }, [state.editingId])
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -26,11 +33,15 @@ export default function ExpenseForm() {
             return
         }
 
-        //Send data
-        dispatch({type: 'add-expense', payload: { expense }})
+        //Agregar ó actualizar gasto
+        if (state.editingId) {
+            dispatch({type: 'update-expense', payload: { expense: {id: state.editingId, ...expense} }})
+        }else{            
+            dispatch({type: 'add-expense', payload: { expense }})
+        }
         dispatch({type: 'status-modal', payload:{status: true}})
         dispatch({type: 'msg', payload: {
-            msg: "Los datos han sido guardados correctamente"
+            msg: state.editingId ? "Los datos han sido modificados correctamente" : "Los datos han sido guardados correctamente"
         }});
         dispatch({ type: 'show' })
 

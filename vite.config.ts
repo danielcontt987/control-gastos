@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react-swc'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  server: {
-    allowedHosts: ['.ngrok-free.app'] // Permite cualquier subdominio de ngrok-free.app
-  }
+  // server: {
+  //   allowedHosts: ['.ngrok-free.app'] // Permite cualquier subdominio de ngrok-free.app
+  // }
 })
