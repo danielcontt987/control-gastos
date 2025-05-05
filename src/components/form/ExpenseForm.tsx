@@ -5,7 +5,7 @@ import { DraftExpense } from "../../types";
 import moment from "moment";
 
 export default function ExpenseForm() {
-    const { dispatch, state } = useBudget();
+    const { dispatch, state, avilableTotal } = useBudget();
     const [expense, setExpense] = useState<DraftExpense>({
         amount: 0,
         expenseName: '',
@@ -13,10 +13,12 @@ export default function ExpenseForm() {
         date: moment().toDate(),
     });
 
+    const [previewAmount, setPreviewAmount] = useState(0)
     useEffect(() => {
         if (state.editingId) {
             const editingExpense = state.expense.filter(currentExpense => currentExpense.id === state.editingId)[0]
             setExpense(editingExpense)
+            setPreviewAmount(editingExpense.amount)
         }
     }, [state.editingId])
 
@@ -27,6 +29,17 @@ export default function ExpenseForm() {
         if (Object.values(expense).includes('')) {
             dispatch({type: 'msg', payload: {
                 msg: "Los campos deben de ser obligatorios"
+            }});
+            dispatch({ type: 'show' })
+            dispatch({type: 'status-modal', payload:{status: false}})
+            return
+        }
+
+        //validar que no me pase del limite
+
+        if ((expense.amount - previewAmount) > avilableTotal) {
+            dispatch({type: 'msg', payload: {
+                msg: "No puedes sobrepasar el monto del presupuesto"
             }});
             dispatch({ type: 'show' })
             dispatch({type: 'status-modal', payload:{status: false}})
@@ -52,6 +65,8 @@ export default function ExpenseForm() {
             category: '',
             date: moment().toDate(),
         })
+
+        setPreviewAmount(0);
     };
 
     const handleChange = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {

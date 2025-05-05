@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import BubgetForm from "./components/BubgetForm";
 import ThemeProvider from "./components/theme/ThemeProvider";
 import { useBudget } from "./hooks/useBudget";
@@ -10,6 +10,11 @@ import ExpendList from "./components/ExpendList";
 export default function App() {
   const { state } = useBudget();
   const isValidBudget = useMemo(() => state.budget > 0, [state.budget])
+
+  useEffect(() => {
+    localStorage.setItem('budget', state.budget.toString())
+    localStorage.setItem('expenses', JSON.stringify(state.expense))
+  }, [state])
 
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 text-black dark:text-white">
