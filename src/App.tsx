@@ -17,7 +17,7 @@ export default function App() {
   }, [state])
 
   return (
-    <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 text-black dark:text-white">
+    <div className="min-h-screen flex flex-col bg-slate-200 dark:bg-gray-900 text-black dark:text-white">
       {/* Contenedor del encabezado */}
       <header className="w-full flex items-center justify-between p-4 pb-4 pt-4 bg-white dark:bg-gray-800">
         <h1 className="text-xl font-bold">Planificador de Gastos</h1>

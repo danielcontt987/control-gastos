@@ -14,7 +14,8 @@ export type BudgetActions =
     {type: 'status-modal', payload: {status : boolean}} | 
     {type: 'remove-expense', payload: {id: Expense['id']}} |
     {type: 'get-expense-by-id', payload: {id: Expense['id']}} |
-    {type: 'update-expense', payload: {expense: Expense}} 
+    {type: 'update-expense', payload: {expense: Expense}} |
+    {type: 'reset-expenses'} 
 
 
 const initialBudget = () : number => {
@@ -141,6 +142,15 @@ export const budgetReducer = (
             editingId: ''
         };
     }
+
+    if(action.type === 'reset-expenses') {        
+        return {
+            ...state,
+            expense: []
+        };
+    }
+
+  
 
     return state
 }

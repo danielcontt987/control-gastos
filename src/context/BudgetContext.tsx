@@ -5,7 +5,8 @@ type BudgetContextProps = {
     state: BudgetState
     dispatch: Dispatch<BudgetActions>
     totalExpense: number,
-    avilableTotal: number
+    avilableTotal: number,
+    percentage: number
 }
 
 type BudgetProviderProps = {
@@ -23,6 +24,8 @@ export const BudgetPorvider = ({children} : BudgetProviderProps) => {
         (total, expense) => expense.amount + total, 0), [state.expense])
 
     const avilableTotal = state.budget - totalExpense
+
+    const percentage = +((totalExpense / state.budget) * 100).toFixed(2);
     
     return (
         <BudgetContext.Provider
@@ -30,7 +33,8 @@ export const BudgetPorvider = ({children} : BudgetProviderProps) => {
                 state,
                 dispatch,
                 totalExpense,
-                avilableTotal
+                avilableTotal, 
+                percentage
             }}
         >
            {children}
